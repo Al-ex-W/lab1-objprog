@@ -7,7 +7,6 @@ public abstract class Car implements Movable{
     protected Color color;
     protected String modelName;
     protected int dirIndex;
-    protected final char[] directions = {'N','E','S','W'};
     protected double x;
     protected double y;
 
@@ -62,20 +61,28 @@ public abstract class Car implements Movable{
 
     @Override
     public void move(){
-        switch(directions[dirIndex]){
-            case 'N':
+        switch(dirIndex){
+            case 0:
                 y += currentSpeed;
                 break;
-            case 'E':
+            case 1:
                 x += currentSpeed;
                 break;
-            case 'S':
+            case 2:
                 y -= currentSpeed;
                 break;
-            case 'W':
+            case 3:
                 x -= currentSpeed;
                 break;
         }
+    }
+
+    public double getX(){
+        return x;
+    }
+
+    public double getY(){
+        return y;
     }
 
     protected abstract double speedFactor();
