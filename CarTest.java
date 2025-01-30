@@ -64,7 +64,24 @@ public class CarTest {
         volvo.startEngine();
         volvo.gas(0.3);
         assertEquals((0.1+(1.25*0.01*100)*0.3), volvo.getCurrentSpeed(), 0.001);
-        volvo.brake(0.24);
-        assertEquals(((0.1+(1.25*0.01*100)*0.3)-(1.25*0.01*100*0.24)), volvo.getCurrentSpeed(), 0.001);
+        volvo.brake(0.04);
+        assertEquals(((0.1+(1.25*0.01*100)*0.3)-(1.25*0.01*100*0.04)), volvo.getCurrentSpeed(), 0.001);
+    }
+
+    @Test
+    public void Testgasbrakeinterval(){
+        Volvo240 volvo = new Volvo240();
+        Saab95 saab = new Saab95();
+        volvo.startEngine();
+        saab.startEngine();
+        assertThrows(IllegalArgumentException.class, () -> volvo.gas(-1.1));
+        assertThrows(IllegalArgumentException.class, () -> volvo.gas(1.1));
+        assertThrows(IllegalArgumentException.class, () -> volvo.brake(-1.1));
+        assertThrows(IllegalArgumentException.class, () -> volvo.brake(1.1));
+        assertThrows(IllegalArgumentException.class, () -> saab.brake(1.1));
+        assertThrows(IllegalArgumentException.class, () -> saab.brake(-1.1));
+        assertThrows(IllegalArgumentException.class, () -> saab.gas(1.1));
+        assertThrows(IllegalArgumentException.class, () -> saab.gas(-1.1));
+
     }
 }
