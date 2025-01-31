@@ -1,14 +1,14 @@
 import java.awt.*;
 
 public abstract class Car implements Movable{
-    protected int nrDoors;
-    protected double enginePower;
-    protected double currentSpeed;
-    protected Color color;
-    protected String modelName;
-    protected int dirIndex;
-    protected double x;
-    protected double y;
+    private int nrDoors;
+    private double enginePower;
+    private double currentSpeed;
+    private Color color;
+    private String modelName;
+    private int dirIndex;
+    private double x;
+    private double y;
 
     public Car(int drs, Color clr, double engPow, String modName){
         nrDoors = drs;
@@ -87,16 +87,28 @@ public abstract class Car implements Movable{
 
     protected abstract double speedFactor();
 
-    protected abstract void incrementSpeed(double amount);
-
-    protected abstract void decrementSpeed(double amount);
 
     public void gas(double amount){
+        if (amount < 0 || amount > 1){
+            throw new IllegalArgumentException("Gas amount must be between 0 and 1");
+        }
         incrementSpeed(amount);
     }
 
     public void brake(double amount){
-        decrementSpeed(amount);
+        if (amount < 0 || amount > 1){
+            throw new IllegalArgumentException("Brake amount must be between 0 and 1");
+        } else {
+            decrementSpeed(amount);
+        }
     }
-    
+
+    private void incrementSpeed(double amount) {
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
+    }
+
+    private void decrementSpeed(double amount) {
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+    }
+
 }
