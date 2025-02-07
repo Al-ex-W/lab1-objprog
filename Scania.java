@@ -36,7 +36,7 @@ public class Scania extends Car{
         return(newAngle);
     }
 
-    public double RaiseTrunkAngle(double amount) {
+    public double raiseTrunkAngle(double amount) {
         double newAngle = getTrunkAngle() + amount;
         return(newAngle);
     }
